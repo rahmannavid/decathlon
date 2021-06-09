@@ -19,6 +19,7 @@ table 50028 "Sole Model Line"
         {
             Caption = 'FG DSM';
             DataClassification = ToBeClassified;
+            TableRelation = "DSM (Super Model)";
         }
         field(4; "FG DSM Description"; Text[100])
         {

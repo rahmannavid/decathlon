@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Your own server",
+            "request": "launch",
+            "type": "al",
+            "environmentType": "OnPrem",
+            "server": "http://localhost",
+            "serverInstance": "BC170",
+            //"serverInstance": "LIVE",         //Live Dev Port
+            //"port": 8049,                     //Live Dev Port
+            "authentication": "Windows",
+            "breakOnError": true,
+            "launchBrowser": true,
+            "enableLongRunningSqlStatements": true,
+            "enableSqlInformationDebugger": true,
+            "tenant": "default",
+            //"startupObjectId": 9308,
+            "startupObjectType": "Page",
+            //"schemaUpdateMode" : "Recreate",  //Will delete all data
+            "schemaUpdateMode" : "ForceSync", //Will delete conflicting field or table data
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "a3a531b1-2af0-4eae-981f-759e01c9a537",
+  "name": "DecathlonBD Extension",
+  "publisher": "Navision Navi World Limited",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "17.0.0.0",
+  "application": "17.0.0.0",
+  "idRanges": [
+    {
+      "from": 50000,
+      "to": 59999
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://TestServer.com/help/",
+  "showMyCode": true,
+  "runtime": "6.0"
+}

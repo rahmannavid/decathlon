@@ -43,14 +43,7 @@ page 50038 "Sole Model Card"
                 {
                     ApplicationArea = All;
                 }
-                field("Ext. Sole DSM"; Rec."Ext. Sole DSM")
-                {
-                    ApplicationArea = All;
-                }
-                field("Ext. Sole DSM Description"; Rec."Ext. Sole DSM Description")
-                {
-                    ApplicationArea = All;
-                }
+
                 field("FG DSM"; Rec."FG DSM")
                 {
                     ApplicationArea = All;
@@ -67,12 +60,61 @@ page 50038 "Sole Model Card"
                 {
                     ApplicationArea = All;
                 }
+                field("Ext. Sole DSM"; Rec."Ext. Sole DSM")
+                {
+                    ApplicationArea = All;
+                }
+                field("Ext. Sole DSM Description"; Rec."Ext. Sole DSM Description")
+                {
+                    ApplicationArea = All;
+                }
             }
 
             part(SoleMoldLines; "Sole Model Subform")
             {
                 ApplicationArea = all;
                 SubPageLink = "Document No." = field("Sole Model Code");
+                Editable = false;
+            }
+        }
+
+
+    }
+    actions
+    {
+        area(Processing)
+        {
+            action("Generate Lines")
+            {
+                trigger OnAction()
+                var
+                    FGModel: Record Model;
+                    SoleModelLine: Record "Sole Model Line";
+                    lineNo: Integer;
+                begin
+                    if not Confirm('All line will be refreashed. Do you want to continue?') then
+                        exit;
+
+                    if SoleModelLine.FindLast() then
+                        SoleModelLine.DeleteAll();
+
+                    lineNo := 10000;
+
+                    FGModel.SetRange(DSM, Rec."FG DSM");
+                    if FGModel.FindFirst() then
+                        repeat
+                            SoleModelLine.Init();
+                            SoleModelLine."Document No." := Rec."Sole Model Code";
+                            SoleModelLine."Line No." := lineNo;
+                            SoleModelLine."FG DSM" := FGModel.DSM;
+                            SoleModelLine."FG DSM Description" := FGModel."DSM Name";
+                            SoleModelLine."FG Model Code" := FGModel.Model;
+                            SoleModelLine."FG Model Description" := FGModel."Model Name";
+                            SoleModelLine.Insert();
+                            lineNo += 10000;
+                        until FGModel.Next() = 0;
+                end;
+
             }
         }
     }

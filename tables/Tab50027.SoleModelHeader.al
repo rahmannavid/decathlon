@@ -19,7 +19,7 @@ table 50027 "Sole Model Header"
         {
             Caption = 'FG DSM';
             DataClassification = ToBeClassified;
-            TableRelation = "Item Distributions"."DSM Code";
+            TableRelation = Model.DSM;
             ValidateTableRelation = true;
 
             trigger OnValidate()
@@ -76,12 +76,7 @@ table 50027 "Sole Model Header"
             Caption = 'Mold Description';
             DataClassification = ToBeClassified;
         }
-        field(7; "EOL Status"; Option)
-        {
-            Caption = 'EOL Status';
-            DataClassification = ToBeClassified;
-            OptionMembers = "Running","Planned EOL","EOL";
-        }
+
         field(8; "Global Std Model"; Boolean)
         {
             Caption = 'Global Std Model';
@@ -97,10 +92,40 @@ table 50027 "Sole Model Header"
             Caption = 'Process Name';
             DataClassification = ToBeClassified;
         }
+        field(7; "EOL Status"; Option)
+        {
+            Caption = 'EOL Status';
+            DataClassification = ToBeClassified;
+            OptionMembers = "Running","Planned EOL","EOL";
+
+            trigger OnValidate()
+            var
+
+            begin
+                if "EOL Status" = "EOL Status"::Running then
+                    "EOL Date" := 0D;
+
+            end;
+        }
         field(11; "EOL Date"; Date)
         {
             Caption = 'EOL Date';
             DataClassification = ToBeClassified;
+
+            trigger OnValidate()
+            var
+
+            begin
+                if "EOL Status" = "EOL Status"::Running then
+                    Error('EOL Status is Running. EOL Date cannot be changed.')
+                else
+                    if "EOL Status" = "EOL Status"::"Planned EOL" then begin
+                        if "EOL Date" <= Today then
+                            Error('EOL date must be in future date');
+                    end else
+                        if "EOL Status" = "EOL Status"::EOL then
+                            Error('EOL Status is EOL. EOL Date cannot be changed.');
+            end;
         }
         field(12; "Std Model SMV"; Integer)
         {

@@ -61,6 +61,10 @@ table 50025 "Sole Mold Inventory Header"
         {
 
         }
+        field(10; "No. Series"; Code[20])
+        {
+
+        }
     }
     keys
     {
@@ -69,5 +73,15 @@ table 50025 "Sole Mold Inventory Header"
             Clustered = true;
         }
     }
+
+    trigger OnInsert()
+    var
+        PurchSetup: Record "Purchases & Payables Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+        PurchSetup.Get();
+        PurchSetup.TestField("Purchase Planning Nos.");
+        NoSeriesMgt.InitSeries(PurchSetup."Sole Mold Inventory Nos.", xRec."No. Series", 0D, "No.", "No. Series");
+    end;
 
 }

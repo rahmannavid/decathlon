@@ -142,6 +142,10 @@ table 50027 "Sole Model Header"
             Caption = 'Ext. Sole DSM Description';
             DataClassification = ToBeClassified;
         }
+        field(15; "No. Series"; Code[20])
+        {
+
+        }
     }
     keys
     {
@@ -151,6 +155,15 @@ table 50027 "Sole Model Header"
         }
     }
 
+    trigger OnInsert()
+    var
+        PurchSetup: Record "Purchases & Payables Setup";
+        NoSeriesMgt: Codeunit NoSeriesManagement;
+    begin
+        PurchSetup.Get();
+        PurchSetup.TestField("Purchase Planning Nos.");
+        NoSeriesMgt.InitSeries(PurchSetup."Sole Model Nos.", xRec."No. Series", 0D, "Sole Model Code", "No. Series");
+    end;
 
 
 }

@@ -8,6 +8,14 @@ pageextension 50020 "Purchases & Payables Setup" extends "Purchases & Payables S
             {
                 ApplicationArea = all;
             }
+            field("Sole Mold Inventory Nos."; Rec."Sole Mold Inventory Nos.")
+            {
+                ApplicationArea = all;
+            }
+            field("Sole Model Nos."; Rec."Sole Model Nos.")
+            {
+                ApplicationArea = all;
+            }
 
         }
     }

@@ -1,7 +1,7 @@
 page 50026 "Sole Role Center Cue"
 {
 
-    Caption = 'Activity';
+    Caption = 'Activity (Sole)';
     PageType = CardPart;
     SourceTable = "Sole Role Center Cue";
 

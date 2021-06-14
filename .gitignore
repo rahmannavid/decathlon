@@ -1,0 +1,5 @@
+# Prerequisites
+*.alpackages
+*.app
+launch.json
+*.json

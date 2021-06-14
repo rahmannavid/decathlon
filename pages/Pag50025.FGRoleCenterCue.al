@@ -1,7 +1,7 @@
 page 50025 "FG Role Center Cue"
 {
 
-    Caption = 'Activity (FG)';
+    Caption = 'Activity';
     PageType = CardPart;
     SourceTable = "FG Role Center Cue";
 

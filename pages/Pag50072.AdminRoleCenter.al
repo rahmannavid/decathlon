@@ -12,10 +12,12 @@ page 50072 "Admin RoleCenter"
             part(Control1; "Sole Role Center Cue")
             {
                 ApplicationArea = All;
+                Caption = 'Activity (Sole)';
             }
             part(Control2; "FG Role Center Cue")
             {
                 ApplicationArea = All;
+                Caption = 'Activity (FG)';
             }
         }
     }

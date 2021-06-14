@@ -160,6 +160,8 @@ pageextension 50021 "Sales Order" extends "Sales Order"
     var
         userSetup: Record "User Setup";
         SalesSetup: Record "Sales & Receivables Setup";
+        locationVar: Record Location;
+        vendorVar: Record Vendor;
     begin
         userSetup.Get(UserId());
         SalesSetup.Get();
@@ -168,8 +170,10 @@ pageextension 50021 "Sales Order" extends "Sales Order"
 
         if not userSetup."Admin User" then begin
             SalesSetup.TestField("Default Customer");
-            Rec.Validate("FG Supplier No.", userSetup."Vendor No.");
-            Rec.validate("Location Code", userSetup."location Code");
+            if vendorVar.Get(userSetup."Vendor No.") then
+                Rec.Validate("FG Supplier No.", userSetup."Vendor No.");
+            if locationVar.Get(userSetup."location Code") then
+                Rec.validate("Location Code", userSetup."location Code");
             FieldEditable := false;
         end else
             FieldEditable := true;

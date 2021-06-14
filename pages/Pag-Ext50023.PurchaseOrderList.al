@@ -105,12 +105,12 @@ pageextension 50023 "Purchase Order List" extends "Purchase Order List"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."Vendor No." <> '' then begin
-                rec.SetRange("FG Supplier No.", userSetup."Vendor No.");
+                rec.SetFilter("FG Supplier No.", userSetup."Vendor No.");
                 Rec.FilterGroup(2);
             end
             else
                 if userSetup."Sole Supplier" <> '' then begin
-                    Rec.SetRange("Buy-from Vendor No.", userSetup."Sole Supplier");
+                    Rec.SetFilter("Buy-from Vendor No.", userSetup."Sole Supplier");
                     rec.FilterGroup(2);
                 end
                 else
@@ -126,12 +126,12 @@ pageextension 50023 "Purchase Order List" extends "Purchase Order List"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."Vendor No." <> '' then begin
-                rec.SetRange("FG Supplier No.", userSetup."Vendor No.");
+                rec.SetFilter("FG Supplier No.", userSetup."Vendor No.");
                 Rec.FilterGroup(2);
             end
             else
                 if userSetup."Sole Supplier" <> '' then begin
-                    Rec.SetRange("Buy-from Vendor No.", userSetup."Sole Supplier");
+                    Rec.SetFilter("Buy-from Vendor No.", userSetup."Sole Supplier");
                     rec.FilterGroup(2);
                 end
                 else

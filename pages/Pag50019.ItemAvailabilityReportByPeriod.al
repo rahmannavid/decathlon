@@ -341,16 +341,19 @@ page 50019 "Item Avail. Report By Period"
     trigger OnAfterGetRecord()
     var
         UserSetup: Record "User Setup";
+        locationVar: Record Location;
     begin
         UserSetup.Get(UserId);
         if not UserSetup."Admin User" then begin
             if UserSetup."Vendor No." <> '' then begin
-                Rec."FG Location Filter" := UserSetup."location Code";
+                if locationVar.Get(UserSetup."location Code") then
+                    Rec."FG Location Filter" := UserSetup."location Code";
                 FGFieldEditable := false;
             end
             else
                 if UserSetup."Sole Supplier" <> '' then begin
-                    Rec."Sole Location Filter" := UserSetup."location Code";
+                    if locationVar.Get(UserSetup."location Code") then
+                        Rec."Sole Location Filter" := UserSetup."location Code";
                     SoleFieldEditable := false;
                 end;
             Rec.Modify();

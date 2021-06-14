@@ -163,6 +163,7 @@ page 50031 "DOT Report"
     var
         UserSetup: Record "User Setup";
         PerformanceReportLines: Record "Performance Report Lines";
+        LocationVar: Record Location;
     begin
         Rec.Reset;
         if not Rec.Get then begin
@@ -174,13 +175,15 @@ page 50031 "DOT Report"
         UserSetup.Get(UserId);
         if not UserSetup."Admin User" then begin
             if UserSetup."Vendor No." <> '' then begin
-                Rec."FG Location Filter" := UserSetup."location Code";
+                if LocationVar.Get(UserSetup."location Code") then
+                    Rec."FG Location Filter" := UserSetup."location Code";
                 Rec.Modify();
                 FGEditable := false;
                 SoleEditable := true;
             end else
                 if UserSetup."Sole Supplier" <> '' then begin
-                    Rec."Sole Location Filter" := UserSetup."location Code";
+                    if LocationVar.Get(UserSetup."location Code") then
+                        Rec."Sole Location Filter" := UserSetup."location Code";
                     Rec.Modify();
                     FGEditable := true;
                     SoleEditable := false;

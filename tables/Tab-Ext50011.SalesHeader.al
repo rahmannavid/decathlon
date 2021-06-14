@@ -20,11 +20,13 @@ tableextension 50011 "Sales Header" extends "Sales Header"
                 dsm: Record "DSM (Super Model)";
                 OrdPlnHeader: Record "Order Planning Header";
                 userSetup: Record "User Setup";
+                locationVar: Record Location;
             begin
                 userSetup.get(UserId);
                 dsm.get("DSM Code");
                 "DSM Name" := dsm."DSM Name";
-                Validate("Location Code", userSetup."location Code");
+                if locationVar.Get(userSetup."location Code") then
+                    Validate("Location Code", userSetup."location Code");
             end;
         }
         field(50003; "DSM Name"; Text[50])
@@ -66,6 +68,7 @@ tableextension 50011 "Sales Header" extends "Sales Header"
         lineNo: Integer;
         userSetup: Record "User Setup";
         Item_Rec: Record Item;
+        locationVar: Record Location;
 
     begin
         userSetup.Get(UserId);
@@ -107,7 +110,8 @@ tableextension 50011 "Sales Header" extends "Sales Header"
             SalesLine.Validate("Variant Code", Size_Rec."Global Dimension 1 Code");  //Size-Variant
 
             SalesLine.Validate("Unit Cost", ItemDistributions."Item Price");
-            SalesLine.Validate("Location Code", userSetup."location Code");
+            if locationVar.Get(userSetup."location Code") then
+                SalesLine.Validate("Location Code", userSetup."location Code");
             SalesLine.Modify();
             lineNo := SalesLine."Line No." + 10000;
         until Size_Rec.Next() = 0;

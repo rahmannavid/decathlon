@@ -39,16 +39,16 @@ page 50034 "LC Informations"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."Vendor No." <> '' then begin
-                vendor.Get(userSetup."Vendor No.");
+                if vendor.Get(userSetup."Vendor No.") then;
                 rec.SetRange("Issued By (FG)", vendor."Location Code");
                 Rec.FilterGroup(2);
             end
             else
                 if userSetup."Sole Supplier" <> '' then begin
                     ItemDist.Reset();
-                    ItemDist.SetRange("Sole Supplier", userSetup."Sole Supplier");
+                    ItemDist.SetFilter("Sole Supplier", userSetup."Sole Supplier");
                     ItemDist.FindFirst();
-                    vendor.Get(userSetup."Vendor No.");
+                    if vendor.Get(userSetup."Vendor No.") then;
                     rec.SetFilter("Issued To (Sole)", vendor."Location Code");
                     Rec.FilterGroup(2);
                 end;

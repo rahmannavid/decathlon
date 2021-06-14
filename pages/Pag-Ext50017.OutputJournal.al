@@ -64,10 +64,12 @@ pageextension 50017 "Output Journal" extends "Output Journal"
     trigger OnNewRecord(BelowxRec: Boolean)
     var
         userSetup: Record "User Setup";
+        locationVar: Record Location;
     begin
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec."Location Code" := userSetup."location Code";
+            if locationVar.Get(userSetup."location Code") then
+                Rec."Location Code" := userSetup."location Code";
         end;
     end;
 
@@ -77,7 +79,7 @@ pageextension 50017 "Output Journal" extends "Output Journal"
     begin
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec.Setrange("Location Code", userSetup."location Code");
+            Rec.SetFilter("Location Code", userSetup."location Code");
             Rec.FilterGroup(2);
         end;
     end;

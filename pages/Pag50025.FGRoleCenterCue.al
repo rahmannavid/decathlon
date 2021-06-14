@@ -125,6 +125,8 @@ page 50025 "FG Role Center Cue"
     trigger OnOpenPage()
     var
         UserSetup: Record "User Setup";
+        LocationVar: Record Location;
+        vendorVar: Record Vendor;
     begin
         Rec.Reset;
         if not Rec.Get then begin
@@ -135,9 +137,11 @@ page 50025 "FG Role Center Cue"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."location Code" <> '' then begin
-                Rec."Location Filter" := UserSetup."location Code";
+                if LocationVar.Get(UserSetup."location Code") then
+                    Rec."Location Filter" := UserSetup."location Code";
             end;
-            Rec."FG Suppiler" := UserSetup."Vendor No.";
+            if vendorVar.get(UserSetup."Vendor No.") then
+                Rec."FG Suppiler" := UserSetup."Vendor No.";
             Rec.Modify();
         end;
     end;

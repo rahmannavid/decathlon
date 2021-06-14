@@ -84,7 +84,7 @@ pageextension 50022 "Sales Order List" extends "Sales Order List"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."location Code" <> '' then begin
-                rec.SetRange("Location Code", userSetup."location Code");
+                rec.SetFilter("Location Code", userSetup."location Code");
                 Rec.FilterGroup(2);
             end else
                 Error('You do not have permission to view this page');
@@ -99,7 +99,7 @@ pageextension 50022 "Sales Order List" extends "Sales Order List"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."location Code" <> '' then begin
-                rec.SetRange("Location Code", userSetup."location Code");
+                rec.SetFilter("Location Code", userSetup."location Code");
                 Rec.FilterGroup(2);
             end else
                 Error('You do not have permission to view this page');

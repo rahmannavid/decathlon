@@ -115,11 +115,15 @@ pageextension 50006 "Released Production Order" extends "Released Production Ord
     trigger OnNewRecord(BelowxRec: Boolean)
     var
         userSetup: Record "User Setup";
+        locationVar: Record Location;
+        vendorVar: Record Vendor;
     begin
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec.validate("Location Code", userSetup."location Code");
-            Rec."Sole Supplier No." := userSetup."Sole Supplier";
+            if locationVar.Get(userSetup."location Code") then
+                Rec.validate("Location Code", userSetup."location Code");
+            if vendorVar.Get(userSetup."Sole Supplier") then
+                Rec."Sole Supplier No." := userSetup."Sole Supplier";
             FieldEditable := false;
         end else
             FieldEditable := true;

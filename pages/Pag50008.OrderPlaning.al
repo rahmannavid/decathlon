@@ -304,13 +304,15 @@ page 50008 "Prod. Order Planing"
 
     trigger OnNewRecord(BelowxRec: Boolean)
     var
+        vendorVar: Record Vendor;
         userSetup: Record "User Setup";
     begin
         Rec."Order Date" := Today;
 
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec.Validate("Vendor No.", userSetup."Vendor No.");
+            if vendorVar.get(userSetup."Vendor No.") then
+                Rec.Validate("Vendor No.", userSetup."Vendor No.");
             FieldEditable := false;
         end else
             FieldEditable := true;

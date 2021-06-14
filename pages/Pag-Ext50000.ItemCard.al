@@ -394,16 +394,16 @@ pageextension 50000 "Item Card" extends "Item Card"
         if not userSetup."Admin User" then begin
             ItemDistributions.Reset();
             ItemDistributions.SetRange("Item No", Rec."No.");
-            ItemDistributions.setrange("Vendor No", UserSetup."Vendor No.");
+            ItemDistributions.SetFilter("Vendor No", UserSetup."Vendor No.");
             if not ItemDistributions.FindFirst() then begin
                 ItemDistributions.Reset();
                 ItemDistributions.SetRange("Item No", Rec."No.");
-                ItemDistributions.setrange("Sole Supplier", UserSetup."Sole Supplier");
+                ItemDistributions.SetFilter("Sole Supplier", UserSetup."Sole Supplier");
                 if not ItemDistributions.FindFirst() then
                     Error('You do not have permission to view this page');
             end;
 
-            Rec.SetRange("Location Filter", UserSetup."location Code");
+            Rec.SetFilter("Location Filter", UserSetup."location Code");
 
         end;
     end;

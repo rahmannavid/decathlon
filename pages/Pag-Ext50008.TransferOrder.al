@@ -476,6 +476,7 @@ pageextension 50008 "Transfer Order" extends "Transfer Order"
     var
         userSetup: Record "User Setup";
         InTransLocation: Record Location;
+        locationVar: Record Location;
     begin
         InTransLocation.SetRange("Use As In-Transit", true);
         InTransLocation.FindFirst();
@@ -484,7 +485,8 @@ pageextension 50008 "Transfer Order" extends "Transfer Order"
         Rec.Validate("In-Transit Code", InTransLocation.Code);
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec.Validate("Transfer-to Code", userSetup."location Code");
+            if locationVar.Get(userSetup."location Code") then
+                Rec.Validate("Transfer-to Code", userSetup."location Code");
             FieldEditable := false;
         end else
             FieldEditable := true;

@@ -119,12 +119,12 @@ page 50007 "Item Distributions"
             pageeditable := false;
 
             if userSetup."Vendor No." <> '' then begin
-                rec.SetRange("Vendor No", userSetup."Vendor No.");
+                rec.SetFilter("Vendor No", userSetup."Vendor No.");
                 Rec.FilterGroup(2);
             end
             else
                 if userSetup."Sole Supplier" <> '' then begin
-                    Rec.SetRange("Sole Supplier", userSetup."Sole Supplier");
+                    Rec.SetFilter("Sole Supplier", userSetup."Sole Supplier");
                     rec.FilterGroup(2);
                 end
                 else

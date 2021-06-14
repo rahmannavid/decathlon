@@ -108,9 +108,11 @@ page 50036 "Mold Inventory Subform"
     trigger OnNewRecord(BelowxRec: Boolean)
     var
         userSetup: Record "User Setup";
+        locationVar: Record Location;
     begin
         userSetup.Get(UserId());
-        Rec."Ownership of Mold" := userSetup."location Code";
+        if locationVar.Get(userSetup."location Code") then
+            Rec."Ownership of Mold" := userSetup."location Code";
     end;
 
     trigger OnModifyRecord(): Boolean

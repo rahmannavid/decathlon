@@ -81,6 +81,6 @@ pageextension 50041 "Item List" extends "Item List"
     begin
         userSetup.Get(UserId);
         if not userSetup."Admin User" then
-            Rec.SetRange("Location Filter", userSetup."location Code");
+            Rec.SetFilter("Location Filter", userSetup."location Code");
     end;
 }

@@ -162,10 +162,12 @@ page 50020 "Item Avail. Report By Location"
     trigger OnAfterGetRecord()
     var
         UserSetup: Record "User Setup";
+        locationVar: Record Location;
     begin
         UserSetup.Get(UserId);
         if not UserSetup."Admin User" then begin
-            Rec."FG Location Filter" := UserSetup."location Code";
+            if locationVar.Get(UserSetup."location Code") then
+                Rec."FG Location Filter" := UserSetup."location Code";
             Rec.Modify();
             FieldEditable := false;
         end else

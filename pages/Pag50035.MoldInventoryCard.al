@@ -97,11 +97,13 @@ page 50035 "Mold Inventory Card"
     trigger OnAfterGetRecord()
     var
         userSetup: Record "User Setup";
+        locationVar: Record Location;
 
     begin
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec.Location := userSetup."location Code";
+            if locationVar.Get(userSetup."location Code") then
+                Rec.Location := userSetup."location Code";
         end else
             Rec.Location := '';
     end;

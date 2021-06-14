@@ -101,13 +101,15 @@ pageextension 50028 "Warehouse Shipment" extends "Warehouse Shipment"
     var
         userSetup: Record "User Setup";
         SalesSetup: Record "Sales & Receivables Setup";
+        locationVar: Record Location;
     begin
         userSetup.Get(UserId());
         SalesSetup.Get();
 
         if not userSetup."Admin User" then begin
             SalesSetup.TestField("Default Customer");
-            Rec.validate("Location Code", userSetup."location Code");
+            if locationVar.Get(userSetup."location Code") then
+                Rec.validate("Location Code", userSetup."location Code");
             FieldEditable := false;
         end else
             FieldEditable := true;

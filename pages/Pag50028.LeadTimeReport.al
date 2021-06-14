@@ -143,6 +143,7 @@ page 50028 "Lead Time Report"
     var
         UserSetup: Record "User Setup";
         PerformanceReportLines: Record "Performance Report Lines";
+        locationVar: Record Location;
     begin
         Rec.Reset;
         if not Rec.Get then begin
@@ -154,13 +155,15 @@ page 50028 "Lead Time Report"
         UserSetup.Get(UserId);
         if not UserSetup."Admin User" then begin
             if UserSetup."Vendor No." <> '' then begin
-                Rec."FG Location Filter" := UserSetup."location Code";
+                if locationVar.Get(UserSetup."location Code") then
+                    Rec."FG Location Filter" := UserSetup."location Code";
                 Rec.Modify();
                 FGEditable := false;
                 SoleEditable := true;
             end else
                 if UserSetup."Sole Supplier" <> '' then begin
-                    Rec."Sole Location Filter" := UserSetup."location Code";
+                    if locationVar.Get(UserSetup."location Code") then
+                        Rec."Sole Location Filter" := UserSetup."location Code";
                     Rec.Modify();
                     FGEditable := true;
                     SoleEditable := false;

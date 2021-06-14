@@ -88,7 +88,7 @@ pageextension 50014 "Released Production Orders" extends "Released Production Or
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."location Code" <> '' then begin
-                rec.SetRange("Location Code", userSetup."location Code");
+                rec.SetFilter("Location Code", userSetup."location Code");
                 Rec.FilterGroup(2);
             end else
                 Error('You do not have permission to view this page');

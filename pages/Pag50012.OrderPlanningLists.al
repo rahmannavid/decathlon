@@ -100,13 +100,13 @@ page 50012 "Prod. Order Planning Lists"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."Vendor No." <> '' then begin
-                rec.SetRange("Vendor No.", userSetup."Vendor No.");
+                rec.SetFilter("Vendor No.", userSetup."Vendor No.");
                 Rec.FilterGroup(2);
             end
             else
                 if userSetup."Sole Supplier" <> '' then begin
                     ItemDist.Reset();
-                    ItemDist.SetRange("Sole Supplier", userSetup."Sole Supplier");
+                    ItemDist.SetFilter("Sole Supplier", userSetup."Sole Supplier");
                     ItemDist.FindFirst();
                     rec.SetFilter("Vendor No.", ItemDist."Vendor No");
                     Rec.FilterGroup(2);

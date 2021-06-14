@@ -153,11 +153,13 @@ page 50022 "Items by Size"
     trigger OnOpenPage()
     var
         UserSetup: Record "User Setup";
+        locationVar: Record Location;
     begin
         SetColumns(MATRIX_SetWanted::Initial);
         UserSetup.Get(UserId);
         if not UserSetup."Admin User" then begin
-            LocationCode := UserSetup."location Code";
+            if locationVar.Get(UserSetup."location Code") then
+                LocationCode := UserSetup."location Code";
             FieldEditable := false;
         end else
             FieldEditable := true;

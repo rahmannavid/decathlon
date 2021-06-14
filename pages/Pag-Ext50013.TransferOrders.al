@@ -124,12 +124,12 @@ pageextension 50013 "Transfer Orders" extends "Transfer Orders"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."Vendor No." <> '' then begin
-                rec.SetRange("Transfer-to Code", userSetup."location Code");
+                rec.SetFilter("Transfer-to Code", userSetup."location Code");
                 Rec.FilterGroup(2);
             end
             else
                 if userSetup."Sole Supplier" <> '' then begin
-                    rec.SetRange("Transfer-from Code", userSetup."location Code");
+                    rec.SetFilter("Transfer-from Code", userSetup."location Code");
                     Rec.FilterGroup(2);
                 end;
 

@@ -122,6 +122,8 @@ page 50026 "Sole Role Center Cue"
     trigger OnOpenPage()
     var
         UserSetup: Record "User Setup";
+        LocationVar: Record Location;
+        vendorVar: Record Vendor;
     begin
         Rec.Reset;
         if not Rec.Get then begin
@@ -132,9 +134,11 @@ page 50026 "Sole Role Center Cue"
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
             if userSetup."location Code" <> '' then begin
-                Rec."Location Filter" := UserSetup."location Code";
+                if LocationVar.Get(UserSetup."location Code") then
+                    Rec."Location Filter" := UserSetup."location Code";
             end;
-            Rec."Sole Supplier" := UserSetup."Sole Supplier";
+            if vendorVar.Get(UserSetup."Sole Supplier") then
+                Rec."Sole Supplier" := UserSetup."Sole Supplier";
             Rec.Modify();
         end;
     end;

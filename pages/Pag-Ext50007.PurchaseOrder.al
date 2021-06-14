@@ -376,13 +376,17 @@ pageextension 50007 "Purchase Order" extends "Purchase Order"
     trigger OnNewRecord(BelowxRec: Boolean)
     var
         userSetup: Record "User Setup";
+        locationVar: Record Location;
+        vendorVar: Record Vendor;
     begin
         Rec."Order Date" := Today;
 
         userSetup.Get(UserId());
         if not userSetup."Admin User" then begin
-            Rec.Validate("FG Supplier No.", userSetup."Vendor No.");
-            rec.validate("Location Code", userSetup."location Code");
+            if vendorVar.Get(userSetup."Vendor No.") then
+                Rec.Validate("FG Supplier No.", userSetup."Vendor No.");
+            if locationVar.Get(userSetup."location Code") then
+                rec.validate("Location Code", userSetup."location Code");
             FieldEditable := false;
         end else
             FieldEditable := true;

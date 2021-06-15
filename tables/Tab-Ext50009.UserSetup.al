@@ -13,7 +13,7 @@ tableextension 50009 "User Setup" extends "User Setup"
             DataClassification = ToBeClassified;
             trigger OnValidate()
             begin
-                SystemMgt.ReturnVendorLocation("Vendor No.", "Sole Supplier");
+                Validate("location Code", SystemMgt.ReturnVendorLocation("Vendor No.", "Sole Supplier"));
             end;
 
             trigger OnLookup()
@@ -29,7 +29,8 @@ tableextension 50009 "User Setup" extends "User Setup"
             DataClassification = ToBeClassified;
             trigger OnValidate()
             begin
-                SystemMgt.ReturnVendorLocation("Vendor No.", "Sole Supplier");
+                ;
+                Validate("location Code", SystemMgt.ReturnVendorLocation("Vendor No.", "Sole Supplier"));
             end;
 
             trigger OnLookup()

@@ -1,7 +1,7 @@
-page 50072 "Admin RoleCenter"
+page 50072 "FG & Sole Supplier RoleCenter"
 {
 
-    Caption = 'Admin RoleCenter';
+    Caption = 'FG & Sole Supplier RoleCenter';
     PageType = RoleCenter;
 
 
